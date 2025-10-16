@@ -18,8 +18,12 @@ public class NotasObservacoesAjudas {
             Isso também pode ser feito ao subir no github.
 
             Git Teste: add, commit, push
-            Estamos utilizando a branch master
-                veja a branch atual: git branch
+            Primeiramente: sempre veja a branch atual: git branch e as atualizações pull
+            Utilizando a branch master como principal e código final
+            Utilizando a branch develop como secundária
+                Fique a vontade para criar uma branch individual
+
+            Até aqui: salvo em master
 
 
 
