@@ -17,6 +17,9 @@ public class NotasObservacoesAjudas {
 
             Isso também pode ser feito ao subir no github.
 
+            Git Teste: add, commit, push
+            Estamos utilizando a branch master
+                veja a branch atual: git branch
 
 
 
