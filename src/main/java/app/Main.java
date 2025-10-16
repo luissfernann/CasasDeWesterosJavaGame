@@ -2,6 +2,8 @@ package app;
 
 public class Main {
 
-        // Atualização de teste
+    static void main(String[] args) {
+        System.out.println("Hello World");
+    }
 
 }
