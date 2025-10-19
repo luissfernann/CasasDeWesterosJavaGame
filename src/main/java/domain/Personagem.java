@@ -56,6 +56,40 @@ public class Personagem {
         return posicao;
     }
 
+    // ADICIONAR: AÇÕES DO PERSONAGEM
+    /*
+        - Andar 1 posição
+        - Ver sua própria posição / atualiza
+                validar posição do oponente 2
+                 → se possível, atacar
+                        se atacar → atualizar danos para o oponente: sua nova vida
+                        fórmulas para ataque, visto que cada personagem recebe o dano de forma diferente
+
+                 → senão, passa a vez
+                        - Oponente anda 2 posição
+                        - Ve sua própria posição / atualiza
+                                validar a posição do oponente 1
+                                 → se possível, atacar
+                                         se atacar → atualizar danos para o oponente: sua nova vida
+                                         fórmulas para ataque, visto que cada personagem recebe o dano de forma diferente
+
+                                 → senão, passa a vez
+                                        - Andar 1 posição
+                                        - Ver sua própria posição / atualiza
+                                                validar posição do oponente 2
+                                                 → se possível, atacar
+                                                          se atacar → atualizar danos para o oponente: sua nova vida
+                                                          fórmulas para ataque, visto que cada personagem recebe o dano de forma diferente
+
+                                ... LOPPING
+
+
+
+
+     */
+
+
+
 
 
 
