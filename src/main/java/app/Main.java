@@ -63,6 +63,7 @@ public int getColuna() {
 
 }
 
+
 public void setPosicao(int novalinha, int novaColuna) {
 
     this.linha = novalinha;
