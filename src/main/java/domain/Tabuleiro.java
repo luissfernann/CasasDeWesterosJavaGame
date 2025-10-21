@@ -1,4 +1,5 @@
 package domain;
+import java.util.Random;
 
 
 public class Tabuleiro {
@@ -15,6 +16,7 @@ public class Tabuleiro {
     }
 
     public void adicionarP(Personagem p, int linha, int coluna) {
+
     }
 
 
