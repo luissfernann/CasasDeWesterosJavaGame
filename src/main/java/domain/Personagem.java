@@ -4,7 +4,6 @@ public class Personagem {
 
     private String nome;
     private Casa casa;
-
     private Posicao posicao;
     private int vidaAtual;
 

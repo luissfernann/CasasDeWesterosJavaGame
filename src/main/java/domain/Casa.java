@@ -12,7 +12,6 @@ public class Casa {
         TARGARYEN = new Casa("TARGARYEN", 45, 20, 10, 3, 0, 0);
     }
 
-
     private String nome;
     private int vidaMaxima;
     private int ataqueBase;

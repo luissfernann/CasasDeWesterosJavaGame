@@ -4,7 +4,7 @@ public class NotasObservacoesAjudas {
 
     // Remover classe no final do projeto
 
-    /*
+/*
 
         Luís
             As classes até então criadas são àquelas em que já é prevista sua funcionalidade.
@@ -20,7 +20,6 @@ public class NotasObservacoesAjudas {
             Git Teste: add, commit, push
             Estamos utilizando a branch master
                 veja a branch atual: git branch
-
 
 
 
