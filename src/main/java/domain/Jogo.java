@@ -2,6 +2,7 @@ package domain;
 
 public class Jogo {
 
+  // Menu GERAL DO JOGO
 
         public static void main(String[] args) {
             Tabuleiro tabuleiro = new Tabuleiro();
