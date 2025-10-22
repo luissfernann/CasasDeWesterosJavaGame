@@ -30,7 +30,8 @@ public Posicao(int linha,int  coluna) {
 
     }
 
-
+public boolean posicao (int tamanhoTabuleiro) {
+    return linha
 
 
 
