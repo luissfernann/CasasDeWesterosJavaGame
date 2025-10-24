@@ -36,5 +36,33 @@ public class Personagem {
         return posicao;
     }
 
+    public int getLinha() {
+        return this.posicao.getLinha();
+    }
+
+    public int getColuna() {
+        return this.posicao.getColuna();
+    }
+
+    public void setPosicao(int linha, int coluna) {
+        this.posicao.setPosicao(linha, coluna);
+    }
+
+    public char getICasa() {
+        return this.casa.getNome().charAt(0);
+    }
+
+    public int getAlcanceMaximo() {
+        return this.casa.getAlcanceMaximo();
+    }
+
+
+    public boolean isVivo() {
+        return this.vidaAtual > 0;
+    }
+
 
 }
+
+
+

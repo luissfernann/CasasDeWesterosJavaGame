@@ -1,5 +1,5 @@
 package domain;
-import java.util.Random;
+
 
 
 public class Tabuleiro {
@@ -15,16 +15,44 @@ public class Tabuleiro {
 
     }
 
-    public void adicionarP(Personagem p, int linha, int coluna) {
+    public void adicionarP(Personagem p, Posicao pos) {
 
+        this.grade[pos.getLinha()][pos.getColuna()] = p;
+        p.setPosicaoPersonagem(pos);
     }
 
 
     public void posicicaoPInicial(Personagem[] time1, Personagem[] time2) {
 
+        for (Personagem p : time1) {
+            if (p == null) continue;
+
+            Posicao posAleatoria;
+            do {
+                posAleatoria = new Posicao(0, 4, TAMANHO);
+            }
+            while (grade[posAleatoria.getLinha()][posAleatoria.getColuna()] != null);
+            adicionarP(p, posAleatoria);
+        }
+        for (Personagem p : time2) {
+
+            if (p == null) continue;
+
+            Posicao posAleatoria;
+            do {
+                posAleatoria = new Posicao(5, 9, TAMANHO);
+            }
+
+            while (grade[posAleatoria.getLinha()][posAleatoria.getColuna()] != null);
+
+            adicionarP(p, posAleatoria);
+
+        }
+
+
     }
 
-    private boolean moviPersonagem(Personagem p, int novaLinha, int novaColuna) {
+    public boolean moverPersonagem(Personagem p, int novaLinha, int novaColuna) {
         if (novaLinha < 0 || novaLinha >= TAMANHO || novaColuna < 0 || novaColuna >= TAMANHO) {
             //Pode colocar uma impressao falando sobre o movimento ser invalido
             return false;
@@ -35,8 +63,8 @@ public class Tabuleiro {
         }
 
 //Fazer um nó para atualizar o personagem na grade
-        grade[personagem.getLinha()][personagem.getColuna()] = null;
-        personagem.setPosicao(novaColuna, novaLinha);
+        grade[p.getLinha()][p.getColuna()] = null;
+        p.setPosicao(novaLinha, novaColuna);
         grade[novaLinha][novaColuna] = p;
         return true;
 //pode colocar uma impressao avisando que se movimentou para posicao escolhida

@@ -1,31 +1,79 @@
 package domain;
+
 import java.util.Random;
 import java.util.List;
 import java.util.Collections;
+import java.util.ArrayList; // CORREÇÃO: Import faltando
 
-public class Bot extends personagem {
+public class Bot {
 
     private Random random = new Random();
 
-    public void realizarJogada(Tabuleiro tabuleiro, Personagem [] timedoBot) {
 
-        Personagem personagemEscolhido = escolherPersonagemAleatorio(timeDoBot);
+    public void realizarJogada(Tabuleiro tabuleiro, Personagem[] timedoBot, Personagem[] timeInimigo) {
+
+        Personagem personagemEscolhido = escolherPersonagemAleatorio(timedoBot);
         if (personagemEscolhido == null) {
-            System.out.println ("Bot não tem personagem suficientes para joga");
+            System.out.println("Bot não tem personagem suficientes para joga");
             return;
         }
-        System.out.println("--- Turno do Bot: " + personagemEscolhido.getNome() + " ---");
+
+        System.out.println("--- Turno do Bot: " + personagemEscolhido.getNomePersonagem() + " ---");
 
         realizarMovimentoAleatorio(tabuleiro, personagemEscolhido);
 
-        System.out.println("Bot (" + personagemEscolhido.getNome() + ") procura um alvo para ataque");
 
-        //FAlta logica de ataquye
+        System.out.println("Bot (" + personagemEscolhido.getNomePersonagem() + ") procura um alvo para ataque...");
+
+
+        Personagem alvo = encontrarAlvoMaisProximo(personagemEscolhido, timeInimigo);
+
+        if (alvo != null) {
+
+            int distancia = personagemEscolhido.getPosicaoPersonagem().CalcularDistancia(alvo.getPosicaoPersonagem());
+
+
+            if (distancia <= personagemEscolhido.getAlcanceMaximo()) {
+                System.out.println(personagemEscolhido.getNomePersonagem() +
+                        " ATACA " + alvo.getNomePersonagem() +
+                        " (Distância: " + distancia + ", Alcance: " + personagemEscolhido.getAlcanceMaximo() + ")");
+
+                //
+                // AQUI VOCÊ DEVE CHAMAR SEU MÉTODO DE ATAQUE (ex: Acoes.realizarAtaque(personagemEscolhido, alvo))
+                //
+
+            } else {
+                System.out.println(alvo.getNomePersonagem() + " é o mais próximo, mas está fora de alcance (Distância: " + distancia + ").");
+            }
+        } else {
+            System.out.println("Nenhum alvo inimigo vivo encontrado.");
+        }
     }
+
+
+    private Personagem encontrarAlvoMaisProximo(Personagem atacante, Personagem[] timeInimigo) {
+        Personagem alvoMaisProximo = null;
+        int menorDistancia = Integer.MAX_VALUE;
+
+        for (Personagem inimigo : timeInimigo) {
+
+            if (inimigo != null && inimigo.isVivo()) {
+                int distancia = atacante.getPosicaoPersonagem().CalcularDistancia(inimigo.getPosicaoPersonagem());
+
+                if (distancia < menorDistancia) {
+                    menorDistancia = distancia;
+                    alvoMaisProximo = inimigo;
+                }
+            }
+        }
+        return alvoMaisProximo;
+    }
+
     private Personagem escolherPersonagemAleatorio(Personagem[] timeDoBot) {
         List<Personagem> personagensVivos = new ArrayList<>();
         for (Personagem p : timeDoBot) {
-            if (p != null && p.getVidaAtual() > 0) {
+
+            if (p != null && p.isVivo()) {
                 personagensVivos.add(p);
             }
         }
@@ -46,19 +94,22 @@ public class Bot extends personagem {
                 direcoes.add(new int[]{i, j});
             }
         }
-    }
-     Collections.shuffle(direcoes); // embaralha os elementos de uma lista (P1ka!)
-    boolean movimentoRealizado = false;
+
+        Collections.shuffle(direcoes);
+        boolean movimentoRealizado = false;
         for (int[] dir : direcoes) {
-        int novaLinha = linhaAtual + dir[0];
-        int novaColuna = colunaAtual + dir[1];
-        if (tabuleiro.moverPersonagem(personagem, novaLinha, novaColuna)) {
-            System.out.println("Bot moveu " + personagem.getNome() + " para (" + novaLinha + ", " + novaColuna + ").");
-            movimentoRealizado = true;
-            break;
+            int novaLinha = linhaAtual + dir[0];
+            int novaColuna = colunaAtual + dir[1];
+            if (tabuleiro.moverPersonagem(personagem, novaLinha, novaColuna)) {
+
+                System.out.println("Bot moveu " + personagem.getNomePersonagem() + " para (" + novaLinha + ", " + novaColuna + ").");
+                movimentoRealizado = true;
+                break;
+            }
         }
-    }
         if (!movimentoRealizado) {
-        System.out.println(personagem.getNome() + " não conseguiu se mover (cercado ou sem opções válidas).");
+
+            System.out.println(personagem.getNomePersonagem() + " não conseguiu se mover (cercado ou sem opções válidas).");
+        }
     }
 }
