@@ -31,9 +31,8 @@ public class Personagem {
         return vidaAtual;
     }
 
-    public Posicao setPosicaoPersonagem(Posicao posicao) {
+    public void setPosicaoPersonagem(Posicao posicao) {
         this.posicao = posicao;
-        return posicao;
     }
 
     public int getLinha() {

@@ -65,6 +65,43 @@ Tabuleiro ( dita as regras posicionamento : limites ).
                         class posição inicial <- tabuleiro recebe o posicionamento inicial
 
 
+    CLASSES ATUALMENTE PRONTAS:
+    VER ORDEM DE CRIAÇÃO (ELE DEVE PERGUNTAR ISSO, OU DEVE SER BOM APRESENTAR ISSO NA APRESENTAÇÃO DO TRABALHO)
+
+       classes de certo modo prontas:
+             casa ++/-
+                    falta tString
+                     também podemos fazer as casas como Listas
+             personagem ++/- falta toString
+              acoes ++/- falta toString
+             tabuleiro ++
+             posicão ++
+             jogo ++
+
+        classes sobrando:
+             registrar jogada
+             main: para iniciar o jogo
+
+   Classes de certo modo prontas:
+    casa
+    personagem
+    tabuleiro
+    posicao
+    jogo
+    acoes
+    bot: em andamento
+
+    classes sobrando:
+        registrar jogada
+        main: para iniciar o jogo
+
+   Detalhes escritos em falta:
+        falta descrever as características de movimento do jogo. O jogo deve acionar o movimento
+        nas teclas "w, a, s, d".
+        - talvez alguns outros que eu não esteja lembrando no momento
+
+
+
 
 
 
