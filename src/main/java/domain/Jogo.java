@@ -6,6 +6,15 @@ import java.util.List;
 
 public class Jogo {
 
+    // tivermos que mudar de array para List a entrada dos personagens para que eles pudessem ser
+        // removidos do tabuleiro após morrer: VER O PORQUÊ DISSO PARA EXPLICAR NA APRESENTAÇÃO
+
+
+    // falta :
+        // mudar para List
+        // posicionamento inicial
+
+
     private Tabuleiro tabuleiro;
     private Scanner scanner;
 
