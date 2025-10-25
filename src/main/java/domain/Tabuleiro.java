@@ -21,10 +21,6 @@ public class Tabuleiro {
         this.celulas = new Personagem[TAMANHO][TAMANHO];
     }
 
-    /*
-     * Adiciona um personagem ao tabuleiro (usado principalmente para setup)
-     * OBS: O método original 'adicionarP' foi simplificado no Jogo.java
-     */
 
     public void adicionarPersonagem(Personagem p, Posicao pos) {
         // Validação
@@ -55,10 +51,9 @@ public class Tabuleiro {
 
 
 
-    /**
+    /*
      * Tenta mover o personagem para uma nova posição.
      */
-
     public boolean moverPersonagem(Personagem p, int novaLinha, int novaColuna) {
 
         // 1. Validação de Limites
@@ -126,6 +121,9 @@ public class Tabuleiro {
             }
         }
     }
+
+
+
 
 
 

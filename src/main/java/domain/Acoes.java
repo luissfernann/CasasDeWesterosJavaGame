@@ -9,13 +9,19 @@ import java.lang.Math;
 public class Acoes {
 
     //VERIFICANDO A POSSIBILIDADE DO ATAQUE ANTES DE ATACAR / DEFENDER
-    public static void atacar(Personagem atacante, Personagem alvo, Tabuleiro tabuleiro) {
+// Acoes.java - Mude a assinatura!
+// ANTES: public static void atacar(Personagem atacante, Personagem alvo, Tabuleiro tabuleiro) {
 
-                // O alvo é exatamente àquele que estiver no alcançe, calculado pela classe JOGO, tabuleiro ou posiçao
+
+
+
+    public static int atacar(Personagem atacante, Personagem alvo, Tabuleiro tabuleiro) {
+
+        // O alvo é exatamente àquele que estiver no alcançe, calculado pela classe JOGO, tabuleiro ou posiçao
         // 1. VERIFICANDO ALCANCE
 
         // Cálculo da Distância
-            // garantindo que o resultado seja sempre positivo
+        // garantindo que o resultado seja sempre positivo
         int dLinha = Math.abs(atacante.getLinha() - alvo.getLinha());
         int dColuna = Math.abs(atacante.getColuna() - alvo.getColuna());
 
@@ -29,7 +35,7 @@ public class Acoes {
         if (distancia > alcance) {
             System.out.println(atacante.getNomePersonagem() + " está fora do alcance para atacar " +
                     alvo.getNomePersonagem() + " (Distância: " + distancia + ", Alcance: " + alcance + ")");
-            return;
+            return 0;
         }
 
             /* CASO ESTEJA NO ALCANÇE, EU POSSO ATACAR, E OUTRO DEFENDER, LOGO:
@@ -39,15 +45,12 @@ public class Acoes {
                     */
 
 
-
-
-
         // 2. CÁLCULO DO DANO E DEFESA
 
-            // personagem + casa = defesa e ataque
+        // personagem + casa = defesa e ataque
 
 
-            // ATACANDO
+        // ATACANDO
 
 
         // chamando
@@ -55,10 +58,10 @@ public class Acoes {
         Casa casaAtacante = atacante.getCasaPersonagem();
         Casa casaAlvo = alvo.getCasaPersonagem(); // para o defensor
 
-                // Dano base (Ataque Base + Modificador Ofensivo): só para esses 2 casos
+        // Dano base (Ataque Base + Modificador Ofensivo): só para esses 2 casos
         // Por exemplo: se é um ataque da casa STARK, temos: 20 * (1 + 0)
         // Por exemplo: se é um ataque da casa LANNISTER, temos: 20 * (1 + 0.15)
-                // Caso especial em TARGARYEN
+        // Caso especial em TARGARYEN
 
         double ataque = casaAtacante.getAtaqueBase() * (1 + casaAtacante.getModificadorOfensivo());
         // Caso especial dessa casa (havia esquecido): TARGARYEN ignora defesa
@@ -71,13 +74,7 @@ public class Acoes {
         fornecida como argumento, ignorando a diferença entre letras maiúsculas e minúsculas. */
 
 
-
-
-
-
-
-
-         // DEFESA
+        // DEFESA
 
         // Defesa inicial
         double defesa = casaAlvo.getDefesaBase();
@@ -89,7 +86,7 @@ public class Acoes {
 
 
         // ÚNICO CASO ESPECIAL PARA DEFESA: Modificador Defensivo (LANNISTER)
-            // com o modificador defensivo: aplicado somente à STARK
+        // com o modificador defensivo: aplicado somente à STARK
         // Código mais "eficiente", mas menos POO
         if (casaAlvo.getNome().equalsIgnoreCase("STARK")) {
             danoBruto *= 0.80; // Aplica a redução de 20% (1 - 0,20 = 0.80)
@@ -121,27 +118,20 @@ public class Acoes {
         alvo.setVidaAtual(novaVida);
 
 
-
         System.out.println(atacante.getNomePersonagem() + " atacou " + alvo.getNomePersonagem() +
                 " e causou " + danoArredondado + " de dano!");
 
         System.out.println("  " + alvo.getNomePersonagem() + " [Vida: " + vidaAnterior + " -> " + novaVida + "]");
 
 
-
-
-
-
-
-                // Usar isso mais tarde
+        // Usar isso mais tarde
         // 4. VERIFICAÇÃO DE MORTE E REMOÇÃO
         if (novaVida <= 0) {
             System.out.println("\n*** " + alvo.getNomePersonagem() + " FOI DERROTADO! ***");
             // Remove o personagem do Tabuleiro
             tabuleiro.removerPersonagem(alvo);
-
-
-
         }
+        return danoArredondado;
+
     }
 }
