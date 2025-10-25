@@ -56,10 +56,21 @@ public class Personagem {
         return this.casa.getAlcanceMaximo();
     }
 
-
     public boolean isVivo() {
         return this.vidaAtual > 0;
     }
+
+    // ...
+    // Método para a classe Acoes aplicar dano
+    public void setVidaAtual(int novaVida) {
+        this.vidaAtual = novaVida;
+    }
+
+    // Método para verificação de vida
+    public boolean estaVivo() { // Usando 'estaVivo' para clareza
+        return this.vidaAtual > 0;
+    }
+// ...
 
 
 }
