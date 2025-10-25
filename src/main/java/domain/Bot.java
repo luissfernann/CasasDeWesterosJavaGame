@@ -1,4 +1,4 @@
-package domain;
+ package domain;
 
 import java.util.Random;
 import java.util.List;
@@ -41,7 +41,7 @@ public class Bot {
 
 
         // 3. AÇÃO MEU FI
-      // teríamos uma variável do tipo: classe Personagem: recebendo um personagem
+        // teríamos uma variável do tipo: classe Personagem: recebendo um personagem
         Personagem alvoIdeal = buscarAlvoMaisProximo(atacanteBot, timeJogador, tabuleiro);
 
         if (alvoIdeal != null) { // quer dizer que não está morto
@@ -62,7 +62,7 @@ public class Bot {
 
 
 
-            // se não tiver, não consigo fazer nada, e temos ue adicionar um passa a vez
+                // se não tiver, não consigo fazer nada, e temos ue adicionar um passa a vez
             } else {
                 System.out.println(alvoIdeal.getNomePersonagem() + " é o mais próximo, mas está fora de alcance (Distância: " + distancia + ").");
             }
@@ -114,6 +114,8 @@ public class Bot {
 
         return alvoIdeal;
     }
+
+
 
 
 

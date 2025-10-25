@@ -197,7 +197,7 @@ public class Jogo {
         }
 
         imprimirHistorico();
-        System.out.println("\n*** FIM DA PARTIDA! Vencedor: " + verificaVitoria() + " ***");
+        System.out.println("\n** FIM DA PARTIDA! Vencedor: " + verificaVitoria() + " **");
     }
 
     // ====================================================================
@@ -208,7 +208,7 @@ public class Jogo {
     private void gerenciarTurnoHumano(List<Personagem> meuTime, List<Personagem> timeOponente, String nomeJogador) {
         System.out.println("\n--- TURNO DE " + nomeJogador + " ---");
 
-        // *** AQUI ENTRA A LÓGICA DE SELEÇÃO E INPUT DO JOGADOR HUMANO ***
+        // * AQUI ENTRA A LÓGICA DE SELEÇÃO E INPUT DO JOGADOR HUMANO *
         // Por simplificação, vamos pegar o primeiro personagem vivo:
         if (meuTime.isEmpty()) return; // Time já derrotado
         Personagem ativo = meuTime.get(0);

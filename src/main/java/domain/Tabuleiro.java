@@ -12,7 +12,7 @@ public class Tabuleiro {
     * */
 
     // Definição inicial para o tabuleiro
-    private final Personagem[][] celulas;
+    public final Personagem[][] celulas;
     public final int TAMANHO = 10;
 
 
@@ -38,6 +38,10 @@ public class Tabuleiro {
             System.out.println("ERRO: Tentativa de adicionar personagem em posição inválida/ocupada.");
         }
     }
+
+
+
+
 
 
 
@@ -82,6 +86,11 @@ public class Tabuleiro {
 
 
 
+
+
+
+
+
     // Retornando issio aqui para a classe Ações e classe Jogo
 
     /*
@@ -96,6 +105,9 @@ public class Tabuleiro {
         return Math.max(dLinha, dColuna);
     }
     // considerando que o jogador escolhe qual personagem seu usar, e escolhe qual personagem quer atacar
+
+
+
 
 
 
@@ -121,6 +133,10 @@ public class Tabuleiro {
             }
         }
     }
+
+
+
+
 
 
 
