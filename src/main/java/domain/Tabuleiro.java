@@ -50,10 +50,14 @@ public class Tabuleiro {
 
 
 
+
+
+
+
+
     /**
      * Tenta mover o personagem para uma nova posição.
      */
-
 
     public boolean moverPersonagem(Personagem p, int novaLinha, int novaColuna) {
 
@@ -83,12 +87,9 @@ public class Tabuleiro {
 
 
 
-
-    // ====================================================================
     // Retornando issio aqui para a classe Ações e classe Jogo
-    // ====================================================================
 
-    /**
+    /*
      * Calcular a porqueira da distância (Chebychev) entre dois personagens mais proximos na mesa do jogo
      */
 
@@ -100,6 +101,7 @@ public class Tabuleiro {
         return Math.max(dLinha, dColuna);
     }
     // considerando que o jogador escolhe qual personagem seu usar, e escolhe qual personagem quer atacar
+
 
 
 
