@@ -11,6 +11,9 @@ public class Acoes {
         // 1. VERIFICANDO ALCANCE
         int dLinha = Math.abs(atacante.getLinha() - alvo.getLinha());
         int dColuna = Math.abs(atacante.getColuna() - alvo.getColuna());
+
+
+
         int distancia = Math.max(dLinha, dColuna);
         int alcance = atacante.getCasaPersonagem().getAlcanceMaximo();
 

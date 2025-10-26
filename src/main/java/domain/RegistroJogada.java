@@ -19,8 +19,11 @@ public class RegistroJogada {
     private final int danoCausado;
     private final int vidaRestanteAlvo;
 
+    // NOVO ATRIBUTO para ações falhas/customizadas
+    private final String descricao;
 
 
+    // Construtor 1: MOVIMENTO
     public RegistroJogada(int numeroDoTurno, Personagem autor, Posicao posInicial, Posicao posFinal) {
         this.tipo = TipoAcao.MOVIMENTO;
         this.numeroDoTurno = numeroDoTurno;
@@ -32,8 +35,10 @@ public class RegistroJogada {
         this.alvo = null;
         this.danoCausado = 0;
         this.vidaRestanteAlvo = 0;
+        this.descricao = null;
     }
 
+    // Construtor 2: ATAQUE BEM-SUCEDIDO
     public RegistroJogada(int numeroDoTurno, Personagem autor, Personagem alvo, int danoCausado, int vidaRestanteAlvo) {
         this.tipo = TipoAcao.ATAQUE;
         this.numeroDoTurno = numeroDoTurno;
@@ -45,7 +50,24 @@ public class RegistroJogada {
 
         this.posInicial = null;
         this.posFinal = null;
+        this.descricao = null;
     }
+
+    // Construtor 3: AÇÃO FALHA/CUSTOMIZADA (Resolve o erro do Jogo.java)
+    public RegistroJogada(int numeroDoTurno, Personagem autor, String descricao) {
+        this.tipo = TipoAcao.ATAQUE; // Usa ATAQUE como marcador genérico
+        this.numeroDoTurno = numeroDoTurno;
+        this.autor = autor;
+
+        this.alvo = null;
+        this.danoCausado = 0;
+        this.vidaRestanteAlvo = 0;
+        this.posInicial = null;
+        this.posFinal = null;
+
+        this.descricao = descricao;
+    }
+
 
     @Override
     public String toString() {
@@ -56,7 +78,7 @@ public class RegistroJogada {
                     autor.getCasaPersonagem().getNome(),
                     posInicial,
                     posFinal);
-        } else if (tipo == TipoAcao.ATAQUE) {
+        } else if (tipo == TipoAcao.ATAQUE && alvo != null) {
             return String.format("Turno %d: [ATAQUE] %s (%s) atacou %s (%s) causando %d de dano. (Vida restante: %d)",
                     numeroDoTurno,
                     autor.getNomePersonagem(),
@@ -65,10 +87,14 @@ public class RegistroJogada {
                     alvo.getCasaPersonagem().getNome(),
                     danoCausado,
                     vidaRestanteAlvo);
+        } else if (tipo == TipoAcao.ATAQUE && alvo == null && this.descricao != null) {
+            // Lógica para AÇÕES FALHAS/CUSTOMIZADAS
+            return String.format("Turno %d: [AÇÃO FALHA] %s (%s) %s",
+                    numeroDoTurno,
+                    autor.getNomePersonagem(),
+                    autor.getCasaPersonagem().getNome(),
+                    this.descricao);
         }
         return "Turno " + numeroDoTurno + ": Ação desconhecida.";
     }
-
-
-
 }

@@ -13,7 +13,11 @@ public class Bot {
     // Ações, mas para a classe bot: tudo o que ele poderá fazer nós vamos definir aqui mesmo
     // vez do bot de jogar: chamada a classe bot
 
-    public void executarTurno(Tabuleiro tabuleiro, List<Personagem> timeBot, List<Personagem> timeJogador) {
+    public void executarTurno(Tabuleiro tabuleiro,
+                              List<Personagem> timeBot,
+                              List<Personagem> timeJogador,
+                              List<RegistroJogada> historicoJogadas, // Adicionado para Log
+                              int turnoAtual) {                       // Adicionado para Log
         Personagem atacanteBot = escolherPersonagemAleatorio(timeBot);
 
 
@@ -24,16 +28,19 @@ public class Bot {
         }
 
         System.out.println("--- Turno do Bot: " + atacanteBot.getNomePersonagem() + " (Casa: " + atacanteBot.getCasaPersonagem().getNome() + ") ---");
-        realizarMovimentoAleatorio(tabuleiro, atacanteBot);
+
+        // LINHAS NOVAS PARA LOG DE MOVIMENTO: Captura a posição inicial e o resultado
+        Posicao posInicial = new Posicao(atacanteBot.getLinha(), atacanteBot.getColuna());
+
+        Posicao posFinal = realizarMovimentoAleatorio(tabuleiro, atacanteBot);
+
+        // Registro de Movimento
+        if (posFinal != null) {
+            historicoJogadas.add(new RegistroJogada(turnoAtual, atacanteBot, posInicial, posFinal));
+        }
+
         // qualquer movimento aleatório → depois calcular o que podemos fazer com esse movimento
         System.out.println("Bot (" + atacanteBot.getNomePersonagem() + ") procurando alvo...");
-
-
-
-
-
-
-
 
 
 
@@ -55,12 +62,17 @@ public class Bot {
                 System.out.println(atacanteBot.getNomePersonagem() + " ATACA " + alvoIdeal.getNomePersonagem() +
                         " (Distância: " + distancia + ", Alcance: " + atacanteBot.getCasaPersonagem().getAlcanceMaximo() + ")");
 
-                // Chama a lógica de combate
-                Acoes.atacar(atacanteBot, alvoIdeal, tabuleiro);
+                // Chama a lógica de combate e captura o dano para o log
+                int danoCausado = Acoes.atacar(atacanteBot, alvoIdeal, tabuleiro);
 
-
-
-
+                // Registro de Ataque
+                historicoJogadas.add(new RegistroJogada(
+                        turnoAtual,
+                        atacanteBot,
+                        alvoIdeal,
+                        danoCausado,
+                        alvoIdeal.getVidaAtual()
+                ));
 
                 // se não tiver, não consigo fazer nada, e temos ue adicionar um passa a vez
             } else {
@@ -72,7 +84,6 @@ public class Bot {
             System.out.println("Nenhum alvo inimigo vivo encontrado no timeJogador.");
         }
     }
-
 
 
 
@@ -139,37 +150,42 @@ public class Bot {
 
 
     //  VER MELHOR COMO FUNCIONA ISSO AQUI
-    private void realizarMovimentoAleatorio(Tabuleiro tabuleiro, Personagem personagem) {
+    // O método retorna a Posicao (ou null) para o log de jogadas
+    private Posicao realizarMovimentoAleatorio(Tabuleiro tabuleiro, Personagem personagem) {
         int linhaAtual = personagem.getLinha();
         int colunaAtual = personagem.getColuna();
+
+        // Lista contendo os 8 possíveis deslocamentos [dLinha, dColuna]
         List<int[]> direcoes = new ArrayList<>();
 
-        // Gera todas as 8 direções de movimento (incluindo diagonais)
+        // Preenche todas as 8 direções (inclusive diagonais)
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                if (i == 0 && j == 0) continue;
-                direcoes.add(new int[]{i, j});
+                if (i != 0 || j != 0) { // Garante que não é [0, 0] (ficar parado)
+                    direcoes.add(new int[]{i, j});
+                }
             }
         }
 
+        // Embaralha as direções para tentar um movimento aleatório
         Collections.shuffle(direcoes);
-        boolean movimentoFeito = false;
 
+        // Tenta mover para a primeira direção válida
         for (int[] dir : direcoes) {
             int novaLinha = linhaAtual + dir[0];
             int novaColuna = colunaAtual + dir[1];
 
-            // Tenta mover o personagem (o Tabuleiro valida os limites e ocupação)
+            // O Tabuleiro fará a validação de limites e ocupação
             if (tabuleiro.moverPersonagem(personagem, novaLinha, novaColuna)) {
-
                 System.out.println("Bot moveu " + personagem.getNomePersonagem() + " para [" + novaLinha + ", " + novaColuna + "].");
-                movimentoFeito = true;
-                break;
+
+                // Retorna a posição final para o RegistroJogada
+                return new Posicao(novaLinha, novaColuna);
             }
         }
-        if (!movimentoFeito) {
 
-            System.out.println(personagem.getNomePersonagem() + " não conseguiu se mover (cercado ou sem opções válidas).");
-        }
+        // Se o loop terminou sem um movimento válido
+        System.out.println(personagem.getNomePersonagem() + " não conseguiu se mover (cercado ou sem opções válidas).");
+        return null; // Retorna null para indicar que não houve movimento
     }
 }

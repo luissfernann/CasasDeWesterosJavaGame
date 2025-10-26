@@ -3,24 +3,20 @@ package domain;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random; // Necessário para o posicionamento aleatório
+import java.util.Random;
 
 public class Jogo {
-
-    // Comentário sobre a mudança de Array para List
-    // Tivemos que mudar de array para List para que os personagens pudessem ser
-    // removidos do time e do tabuleiro de forma eficiente após serem derrotados.
 
     private Tabuleiro tabuleiro;
     private Scanner scanner;
     private Bot bot;
 
-    // Lista para gerenciar personagens de cada time (Times 1 e 2)
     private List<Personagem> time1;
     private List<Personagem> time2;
+
+
     private final int MAX_PERSONAGENS = 3;
 
-    // Atributos de Log e Controle de Turno
     private List<RegistroJogada> historicoJogadas;
     private int turnoAtual = 1;
 
@@ -28,9 +24,8 @@ public class Jogo {
     public Jogo() {
         this.tabuleiro = new Tabuleiro();
         this.scanner = new Scanner(System.in);
-        this.bot = new Bot(); // Inicializa o Bot
+        this.bot = new Bot();
 
-        // Inicializa as LISTAS
         this.time1 = new ArrayList<>();
         this.time2 = new ArrayList<>();
         this.historicoJogadas = new ArrayList<>();
@@ -40,7 +35,6 @@ public class Jogo {
      * Ponto de entrada do jogo.
      */
     public void iniciar() {
-        // ... (código de seleção de modo e cabeçalho, mantido igual) ...
         System.out.println("=========================================");
         System.out.println("     Início do Jogo - A Batalha de Westeros");
         System.out.println("=========================================");
@@ -59,6 +53,7 @@ public class Jogo {
                 System.out.println("Opção inválida. Por favor, digite 1 ou 2.");
             }
         }
+
         // Fim da seleção de modo
 
         // 1. Configuração dos Personagens para o Time 1 (Sempre Humano)
@@ -67,49 +62,47 @@ public class Jogo {
         if (escolha == 1) {
             // 2. Configuração dos Personagens para o Time 2 (Humano)
             configurarTime(time2, "Jogador 2 (Time Targaryen/Lannister)");
+
+            // ALTERAÇÃO: Chama posicionamento aqui, após a configuração dos dois times
+            posicionarPersonagens();
             iniciarPartida(ModoJogo.HUMANO_VS_HUMANO);
         } else {
             // 2. Configuração dos Personagens para o Time 2 (Bot)
             configurarTimeBot(time2);
+
+            // ALTERAÇÃO: Chama posicionamento aqui, após a configuração dos dois times
+            posicionarPersonagens();
             iniciarPartida(ModoJogo.HUMANO_VS_BOT);
         }
     }
 
     // ====================================================================
-    // MÉTODOS DE CONFIGURAÇÃO (Agora usam List e time.add())
+    // MÉTODOS DE CONFIGURAÇÃO (Omitidos - Estão corretos)
     // ====================================================================
 
     private void configurarTime(List<Personagem> time, String nomeJogador) {
         System.out.println("\n--- Configuração de " + nomeJogador + " ---");
-
-        Casa casaPadrao = Casa.getSTARK(); // Exemplo
+        Casa casaPadrao = Casa.getSTARK();
         Posicao posPadrao = new Posicao(0, 0);
-
         for (int i = 0; i < MAX_PERSONAGENS; i++) {
             System.out.print("Digite o nome para o Personagem " + (i + 1) + " (Casa " + casaPadrao.getNome() + "): ");
             String nome = scanner.nextLine();
-
-            // CORREÇÃO 1: Usando time.add()
             time.add(new Personagem(nome, casaPadrao, posPadrao));
         }
     }
 
-    private void configurarTimeBot(List<Personagem> time) { // Assinatura corrigida
+    private void configurarTimeBot(List<Personagem> time) {
         System.out.println("\n--- Configuração de Bot (Máquina) (Automático) ---");
-
         Casa casaBot = Casa.getTARGARYEN();
         Posicao posPadrao = new Posicao(0, 0);
-
-        // CORREÇÃO 2: Usando time.add()
         time.add(new Personagem("Dragão", casaBot, posPadrao));
         time.add(new Personagem("MãeDosDragões", casaBot, posPadrao));
         time.add(new Personagem("Imaculado", casaBot, posPadrao));
-
         System.out.println("Time do Bot criado com sucesso.");
     }
 
     // ====================================================================
-    // MÉTODOS DE POSICIONAMENTO E LOG (NOVO)
+    // MÉTODOS DE POSICIONAMENTO E LOG
     // ====================================================================
 
     /**
@@ -117,14 +110,14 @@ public class Jogo {
      */
     private void posicionarPersonagens() {
         Random rand = new Random();
-        int tamanho = tabuleiro.TAMANHO; // Assumindo que Tabuleiro tem uma constante TAMANHO
+        int tamanho = 10; // Use a constante correta do seu Tabuleiro
 
         // Posiciona Time 1 (em 0-3)
         for (Personagem p : time1) {
             Posicao pos;
             do {
                 pos = new Posicao(rand.nextInt(4), rand.nextInt(tamanho));
-            } while (tabuleiro.celulas[pos.getLinha()][pos.getColuna()] != null); // Evita sobreposição
+            } while (tabuleiro.celulas[pos.getLinha()][pos.getColuna()] != null);
             tabuleiro.adicionarPersonagem(p, pos);
         }
 
@@ -133,24 +126,16 @@ public class Jogo {
             Posicao pos;
             do {
                 pos = new Posicao(rand.nextInt(4) + 6, rand.nextInt(tamanho));
-            } while (tabuleiro.celulas[pos.getLinha()][pos.getColuna()] != null); // Evita sobreposição
+            } while (tabuleiro.celulas[pos.getLinha()][pos.getColuna()] != null);
             tabuleiro.adicionarPersonagem(p, pos);
         }
         System.out.println("\nPersonagens posicionados no tabuleiro!");
     }
 
-    /**
-     * Remove personagens que não estão mais vivos de seus respectivos times.
-     */
     private void removerMortos(List<Personagem> time) {
-        // Usa a função lambda removeIf, que é eficiente em List
         time.removeIf(p -> !p.estaVivo());
     }
 
-    /**
-     * Verifica se houve um vencedor.
-     * @return O nome do vencedor ou null se o jogo continuar.
-     */
     private String verificaVitoria() {
         if (time1.isEmpty()) return "Jogador 2/Bot";
         if (time2.isEmpty()) return "Jogador 1";
@@ -164,17 +149,16 @@ public class Jogo {
     private void iniciarPartida(ModoJogo modo) {
         System.out.println("\n--- INICIANDO PARTIDA: " + modo + " ---");
 
-        posicionarPersonagens();
-        tabuleiro.ImprimeTabuleiro();
+        // NOTE: 'posicionarPersonagens()' FOI REMOVIDO DAQUI para ser chamado no iniciar()
+        tabuleiro.ImprimeTabuleiro(); // Imprime o tabuleiro já posicionado
 
-        // Loop principal do jogo
         while (verificaVitoria() == null) {
             System.out.println("\n===== TURNO " + turnoAtual + " =====");
 
             // 1. Turno do Time 1 (Sempre Humano)
             gerenciarTurnoHumano(time1, time2, "Jogador 1");
             removerMortos(time1);
-            removerMortos(time2); // Remove mortos caso o ataque tenha ocorrido
+            removerMortos(time2);
 
             if (verificaVitoria() != null) break;
 
@@ -183,8 +167,8 @@ public class Jogo {
                 gerenciarTurnoHumano(time2, time1, "Jogador 2");
             } else {
                 System.out.println("\n--- TURNO DO BOT ---");
-                // Bot controla time2, ataca time1
-                bot.executarTurno(tabuleiro, time2, time1);
+                // Correção: Passando o histórico e o turno
+                bot.executarTurno(tabuleiro, time2, time1, historicoJogadas, turnoAtual);
             }
 
             removerMortos(time1);
@@ -204,24 +188,24 @@ public class Jogo {
     // GERENCIAMENTO DE TURNO HUMANO (Integrando RegistroJogada)
     // ====================================================================
 
-    // CORREÇÃO 3: Assinatura alterada para List e aceitar o time oponente
     private void gerenciarTurnoHumano(List<Personagem> meuTime, List<Personagem> timeOponente, String nomeJogador) {
+        // ... (Lógica Omitida - Está correta, mas com placeholder para input) ...
         System.out.println("\n--- TURNO DE " + nomeJogador + " ---");
 
-        // * AQUI ENTRA A LÓGICA DE SELEÇÃO E INPUT DO JOGADOR HUMANO *
-        // Por simplificação, vamos pegar o primeiro personagem vivo:
-        if (meuTime.isEmpty()) return; // Time já derrotado
+        if (meuTime.isEmpty()) return;
         Personagem ativo = meuTime.get(0);
 
-        // Exemplo Simplificado de Ação (Ataque no primeiro inimigo vivo)
         if (!timeOponente.isEmpty()) {
             Personagem alvo = timeOponente.get(0);
 
-            // 1. Tenta o ataque e obtém o dano (Acoes.atacar DEVE retornar int)
             int danoCausado = Acoes.atacar(ativo, alvo, tabuleiro);
 
-            // 2. CRIA E ARMAZENA O REGISTRO DE ATAQUE
-            if (danoCausado > 0) { // Se o dano foi real (e não fora de alcance)
+            // Na classe Jogo.java, dentro do método gerenciarTurnoHumano:
+
+// ... (Lógica do ataque)
+
+            if (danoCausado > 0) {
+                // 1. REGISTRO DE ATAQUE BEM-SUCEDIDO (5 argumentos)
                 historicoJogadas.add(new RegistroJogada(
                         turnoAtual,
                         ativo,
@@ -230,19 +214,19 @@ public class Jogo {
                         alvo.getVidaAtual()
                 ));
             } else {
-                // Registro de um passe ou ataque falho
+                // 2. REGISTRO DE AÇÃO FALHA (3 argumentos)
                 historicoJogadas.add(new RegistroJogada(
                         turnoAtual,
                         ativo,
-                        null, // Alvo pode ser nulo para registro de ação falha
-                        "Tentativa de ataque falhou/fora de alcance"
+                        // REMOVA O 'null' QUE ESTAVA AQUI!
+                        "Tentativa de ataque falhou/fora de alcance" // A String agora é o 3º argumento
                 ));
             }
         }
     }
 
     // ====================================================================
-    // MÉTODOS UTILITÁRIOS
+    // MÉTODOS UTILITÁRIOS (Omitidos - Estão corretos)
     // ====================================================================
 
     private void imprimirHistorico() {
@@ -253,12 +237,10 @@ public class Jogo {
         System.out.println("================================");
     }
 
-    // Método Getter solicitado
     public int getTurnoAtual() {
         return turnoAtual;
     }
 
-    // Enum para melhor legibilidade
     private enum ModoJogo {
         HUMANO_VS_HUMANO, HUMANO_VS_BOT
     }
