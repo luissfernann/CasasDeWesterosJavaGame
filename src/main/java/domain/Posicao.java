@@ -1,11 +1,12 @@
 package domain;
 import java.util.Random;
-    
+import java.util.Scanner;
+
 public class Posicao {
  private int linha;
  private int coluna;
 
-  
+
 public Posicao(int linha,int  coluna) {
         this.linha = linha;
         this.coluna = coluna;
@@ -21,7 +22,7 @@ public Posicao(int linha,int  coluna) {
     public int getColuna() {
         return coluna;
     }
-    
+
     public void setPosicao(int novalinha, int novaColuna) {
 
         this.linha = novalinha;
@@ -46,7 +47,7 @@ public int CalcularDistancia(Posicao outra) {
 	}
 }
 
-public class Movimentacao {
+ class Movimentacao {
 
     private int tamanho;
     private Personagem[][] grade;
@@ -103,7 +104,7 @@ public class Movimentacao {
         return true;
     }
 
- 
+
     public void imprimirTabuleiro() {
         System.out.println("\n===== TABULEIRO =====");
         for (int i = 0; i < tamanho; i++) {
