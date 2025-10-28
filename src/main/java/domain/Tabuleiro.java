@@ -107,4 +107,31 @@ public class Tabuleiro {
         }
         System.out.println("===========================\n");
     }
+    //Adição das linhas laterais 
+    System.out.print("    ");
+    for (int j = 0; j < tamanho; j++) {
+        System.out.printf("%2d ", j);
+    }
+    System.out.println();
+
+    System.out.print("    ");
+    for (int j = 0; j < tamanho; j++) {
+        System.out.print("---");
+    }
+    System.out.println();
+
+    //Impressão das linhas com numeração lateral
+    for (int i = 0; i < tamanho; i++) {
+        System.out.printf("%2d |", i); 
+        for (int j = 0; j < tamanho; j++) {
+            if (tabuleiro[i][j] != null) {
+                System.out.print(" " + tabuleiro[i][j].getNomePersonagem().charAt(0) + " ");
+            } else {
+                System.out.print(" . ");
+            }
+        }
+        System.out.println();
+    }
+}
+
 }
