@@ -94,22 +94,10 @@ public class Tabuleiro {
 
 
     public void ImprimeTabuleiro() {
-        System.out.println("\n===== TABULEIRO ATUAL =====");
-        for (int i = 0; i < TAMANHO; i++) {
-            for (int j = 0; j < TAMANHO; j++) {
-                if (grade[i][j] != null) {
-                    System.out.print("[ " + grade[i][j].getICasa() + " ]"); // Usa 3 caracteres
-                } else {
-                    System.out.print("[   ]"); // Usa 3 caracteres
-                }
-            }
-            // CORREÇÃO: O println() foi movido para fora do loop 'j'
-            System.out.println();
-        }
-        System.out.println("===========================\n");
 
-        //Adição das linhas laterais
-        System.out.print("    ");
+
+        System.out.println("         TABULEIRO ATUAL ");
+
         for (int j = 0; j < TAMANHO; j++) {
             System.out.printf("%2d ", j);
         }

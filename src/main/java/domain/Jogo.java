@@ -42,7 +42,7 @@ public class Jogo {
             resetarJogo();
 
             System.out.println("=========================================");
-            System.out.println("     Início do Jogo - A Batalha de Westeros");
+            System.out.println("  Início do Jogo - A Batalha de Westeros");
             System.out.println("=========================================");
 
             int escolha = 0;
@@ -184,11 +184,11 @@ public class Jogo {
         // Posiciona os personagens ANTES de iniciar o loop
         posicionarPersonagens();
 
-        System.out.println("\n--- INICIANDO PARTIDA: " + modo + " ---");
+        System.out.println("\n-- INICIANDO PARTIDA: " + modo + " --");
         tabuleiro.ImprimeTabuleiro(); // Mostra o estado inicial
 
         while (verificaVitoria() == null) {
-            System.out.println("\n===== TURNO " + turnoAtual + " =====");
+            System.out.println("\n              TURNO " + turnoAtual + " ");
 
             // 1. Turno do Time 1 (Sempre Humano)
             gerenciarTurnoHumano(time1, time2, "Jogador 1");
@@ -225,7 +225,7 @@ public class Jogo {
     // ====================================================================
 
     private void gerenciarTurnoHumano(List<Personagem> meuTime, List<Personagem> timeOponente, String nomeJogador) {
-        System.out.println("\n--- TURNO DE " + nomeJogador + " ---");
+        System.out.println("\n    --- TURNO DE " + nomeJogador + " ---");
 
         // 1. ESCOLHER PERSONAGEM
         Personagem ativo = selecionarPersonagemAtivo(meuTime);

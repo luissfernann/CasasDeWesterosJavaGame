@@ -95,6 +95,6 @@ public class RegistroJogada {
                     autor.getCasaPersonagem().getNome(),
                     this.descricao);
         }
-        return "Turno " + numeroDoTurno + ": Ação desconhecida.";
+        return "    Turno " + numeroDoTurno + ": Ação desconhecida.";
     }
 }
