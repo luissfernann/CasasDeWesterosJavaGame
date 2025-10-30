@@ -8,15 +8,15 @@ import java.util.Random;
 public class Jogo {
 
     private Tabuleiro tabuleiro;
-    private Scanner scanner;
-    private Bot bot;
+    private final Scanner scanner;
+    private final Bot bot;
 
-    private List<Personagem> time1;
-    private List<Personagem> time2;
+    private final List<Personagem> time1;
+    private final List<Personagem> time2;
 
     private final int MAX_PERSONAGENS = 3;
 
-    private List<RegistroJogada> historicoJogadas;
+    private final List<RegistroJogada> historicoJogadas;
     private int turnoAtual;
 
 
@@ -37,6 +37,7 @@ public class Jogo {
     public void iniciar() {
         // Loop principal para a opção "Jogar Novamente" (Atividade 6)
         boolean jogarNovamente = true;
+
         while (jogarNovamente) {
             // Reseta o estado do jogo para uma nova partida
             resetarJogo();
@@ -59,6 +60,8 @@ public class Jogo {
                     System.out.println("Opção inválida. Por favor, digite 1 ou 2.");
                 }
             }
+
+
             // Fim da seleção de modo
 
             // 1. Configuração dos Personagens para o Time 1 (Sempre Humano)
@@ -117,6 +120,7 @@ public class Jogo {
             String nome = scanner.nextLine();
             time.add(new Personagem(nome, casaEscolhida, posPadrao));
         }
+
     }
 
     /**
@@ -149,7 +153,7 @@ public class Jogo {
     }
 
     /**
-     * Remove personagens com vida <= 0 da lista do time.
+     * Remove personagens com vida ← 0 da lista do time.
      */
     private void removerMortos(List<Personagem> time) {
         time.removeIf(p -> !p.estaVivo());
