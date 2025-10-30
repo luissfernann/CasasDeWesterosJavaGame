@@ -144,7 +144,7 @@ public class Jogo {
      * Chama o tabuleiro para posicionar os personagens em lados opostos.
      */
     private void posicionarPersonagens() {
-        tabuleiro.posicicaoPInicial(time1, time2); // Delegado ao Tabuleiro
+        tabuleiro.posicaoPInicial(time1, time2); // Delegado ao Tabuleiro
         System.out.println("\nPersonagens posicionados no tabuleiro!");
     }
 

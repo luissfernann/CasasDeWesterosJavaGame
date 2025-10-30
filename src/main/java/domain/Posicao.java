@@ -23,12 +23,10 @@ public Posicao(int linha,int  coluna) {
         return coluna;
     }
 
-    public void setPosicao(int novalinha, int novaColuna) {
+    public void setPosicao(int novaLinha, int novaColuna) {
 
-        this.linha = novalinha;
+        this.linha = novaLinha;
         this.coluna= novaColuna;
-
-
     }
 
 public boolean isPosicaoValida(int tamanhoTabuleiro) {
@@ -49,8 +47,8 @@ public int CalcularDistancia(Posicao outra) {
 
  class Movimentacao {
 
-    private int tamanho;
-    private Personagem[][] grade;
+    private final int tamanho;
+    private final Personagem[][] grade;
 
     public Movimentacao(int tamanho, Personagem[][] grade) {
         this.tamanho = tamanho;

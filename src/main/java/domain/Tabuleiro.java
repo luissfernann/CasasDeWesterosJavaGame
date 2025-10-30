@@ -4,19 +4,16 @@ import java.util.List;
 
 public class Tabuleiro {
 
-    private Personagem[][] grade;
+    private final Personagem[][] grade;
     private final int TAMANHO = 10;
-
 
     public int calcularDistancia(Personagem p1, Personagem p2) {
         return p1.getPosicaoPersonagem().CalcularDistancia(p2.getPosicaoPersonagem());
     }
 
-
     public int getTamanho() {
         return TAMANHO;
     }
-
 
     public Personagem getPersonagemNaPosicao(int linha, int coluna) {
         if (linha < 0 || linha >= TAMANHO || coluna < 0 || coluna >= TAMANHO) {
@@ -25,13 +22,11 @@ public class Tabuleiro {
         return grade[linha][coluna];
     }
 
-
     public void removerPersonagem(Personagem p) {
         if (p != null) {
             grade[p.getLinha()][p.getColuna()] = null;
         }
     }
-
 
     public Tabuleiro() {
         this.grade = new Personagem[TAMANHO][TAMANHO];
@@ -43,26 +38,31 @@ public class Tabuleiro {
     }
 
 
-    public void posicicaoPInicial(List<Personagem> time1, List<Personagem> time2) {
+    // adicionando ao tabuleiro os personagens de cada time, em suas posições iniciais
+    public void posicaoPInicial(List<Personagem> time1, List<Personagem> time2) {
 
+
+        // 1º: Para o time 1
         for (Personagem p : time1) {
             if (p == null) continue;
 
             Posicao posAleatoria;
             do {
-
+                // diminuindo o tamanho do tabuleiro para considerar que os pesonagens sejam colocados em lados opostos
                 posAleatoria = new Posicao(0, 4, TAMANHO);
             }
             while (grade[posAleatoria.getLinha()][posAleatoria.getColuna()] != null);
             adicionarPersonagem(p, posAleatoria);
         }
 
+
+        // 1º: Para o time 2
         for (Personagem p : time2) {
             if (p == null) continue;
 
             Posicao posAleatoria;
             do {
-
+                // diminuindo o tamanho do tabuleiro para considerar que os pesonagens sejam colocados em lados opostos
                 posAleatoria = new Posicao(5, 9, TAMANHO);
             }
 
@@ -83,7 +83,6 @@ public class Tabuleiro {
             return false;
         }
 
-
         grade[p.getLinha()][p.getColuna()] = null;
         p.setPosicao(novaLinha, novaColuna);
         grade[novaLinha][novaColuna] = p;
@@ -92,7 +91,7 @@ public class Tabuleiro {
         return true;
     }
 
-
+    // Imprimindo a atualização do tabuleiro, considerando o seu turno atual
     public void ImprimeTabuleiro() {
 
 

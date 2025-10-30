@@ -7,11 +7,7 @@ import java.util.ArrayList;
 
 public class Bot {
 
-    private Random random = new Random();
-
-
-    // Ações, mas para a classe bot: tudo o que ele poderá fazer nós vamos definir aqui mesmo
-    // vez do bot de jogar: chamada a classe bot
+    private final Random random = new Random();
 
     public void executarTurno(Tabuleiro tabuleiro,
                               List<Personagem> timeBot,
