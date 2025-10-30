@@ -3,6 +3,7 @@ package domain;
 import java.lang.Math;
 //Math.abs, Math.max, Math.round
 
+//realizando teste
 public class Acoes {
 
     public static int atacar(Personagem atacante, Personagem alvo, Tabuleiro tabuleiro) {
