@@ -1,6 +1,6 @@
 package domain;
 
-// Importa a classe Math para operações como Math.abs, Math.max, Math.round
+// Importando a classe Math para o uso de algumas operações, como em Math.abs, Math.max, Math.round
 import java.lang.Math;
 
 
@@ -8,11 +8,9 @@ public class Acoes {
 
     public static int atacar(Personagem atacante, Personagem alvo, Tabuleiro tabuleiro) {
 
-        // 1. VERIFICANDO ALCANCE
+        //  1º: verificando o alcançe para a possibilidade de um ataque, observando seu máximo, como seguinte as regras
         int dLinha = Math.abs(atacante.getLinha() - alvo.getLinha());
         int dColuna = Math.abs(atacante.getColuna() - alvo.getColuna());
-
-
 
         int distancia = Math.max(dLinha, dColuna);
         int alcance = atacante.getCasaPersonagem().getAlcanceMaximo();
@@ -23,40 +21,35 @@ public class Acoes {
             return 0;
         }
 
-        // 2. CÁLCULO DO DANO E DEFESA
-
+        // 2º: inicializamos o ataque e defesa, caso esteja tudo dentro do alcançe
         Casa casaAtacante = atacante.getCasaPersonagem();
         Casa casaAlvo = alvo.getCasaPersonagem(); // para o defensor
 
-        // ATACANDO
+        // realizando um ataque
         double ataque = casaAtacante.getAtaqueBase() * (1 + casaAtacante.getModificadorOfensivo());
-
-        // DEFESA
-        // CORREÇÃO: DECLARAÇÃO DA VARIÁVEL 'defesa' MOVIDA PARA AQUI!
-        // Assim, ela existe antes de ser usada no IF do TARGARYEN.
         double defesa = casaAlvo.getDefesaBase();
 
-        // Caso especial TARGARYEN (agora a variável 'defesa' existe!)
+        // Caso especial para a casa TARGARYEN
         if (casaAtacante.getNome().equalsIgnoreCase("TARGARYEN")) {
-            defesa = 0; // Atribuição correta
+            defesa = 0;
             System.out.println("  (TARGARYEN ignora a defesa!)");
         }
 
-        // Dano Bruto
         double danoBruto = ataque - defesa;
 
-        // ÚNICO CASO ESPECIAL PARA DEFESA: Modificador Defensivo (STARK)
+        // caso especial para a defesa usando o modificador Defensivo : casa STARK
         if (casaAlvo.getNome().equalsIgnoreCase("STARK")) {
             danoBruto *= 0.80;
             System.out.println("  (Defensor da casa STARK reduziu o dano em 20%.)");
         }
 
-        // Garante que o dano não seja negativo
+
+        // garantindo que o dano total não seja negativo, e que ele seja um valor inteiro
         double danoFinal = Math.max(danoBruto, 0);
         int danoArredondado = (int) Math.round(danoFinal);
 
-        // 3. APLICAÇÃO DO DANO E ATUALIZAÇÃO DE VIDA
 
+        // 3º: aplicação do dano + atualização da vida do personagem
         int vidaAnterior = alvo.getVidaAtual();
         int novaVida = vidaAnterior - danoArredondado;
 

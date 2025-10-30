@@ -2,8 +2,8 @@ package domain;
 
 public class Personagem {
 
-    private String nome;
-    private Casa casa;
+    private final String nome;
+    private final Casa casa;
     private Posicao posicao;
     private int vidaAtual;
 
@@ -59,13 +59,12 @@ public class Personagem {
         return this.vidaAtual > 0;
     }
 
-    // ...
-    // Método para a classe Acoes aplicar dano
+    // Ações
     public void setVidaAtual(int novaVida) {
         this.vidaAtual = novaVida;
     }
 
-    // Método para verificação de vida
+    // Ações
     public boolean estaVivo() { // Usando 'estaVivo' para clareza
         return this.vidaAtual > 0;
     }

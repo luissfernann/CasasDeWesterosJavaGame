@@ -249,8 +249,8 @@ public class Jogo {
             System.out.println("Escolha seu personagem para este turno:");
             for (int i = 0; i < meuTime.size(); i++) {
                 Personagem p = meuTime.get(i);
-                System.out.printf("%d. %s (Casa: %s, Vida: %d) - Pos: %s\n",
-                        i + 1, p.getNomePersonagem(), p.getCasaPersonagem().getNome(), p.getVidaAtual(), p.getPosicaoPersonagem());
+                System.out.printf("%d. %s (Casa: %s, Vida: %d) - Pos: %s, Alcance: %d\n",
+                        i + 1, p.getNomePersonagem(), p.getCasaPersonagem().getNome(), p.getVidaAtual(), p.getPosicaoPersonagem(), p.getAlcanceMaximo());
             }
             System.out.print("Opção: ");
             int escolha = -1;

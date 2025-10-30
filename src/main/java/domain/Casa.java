@@ -5,22 +5,22 @@ public class Casa {
     private static final Casa STARK;
     private static final Casa LANNISTER;
     private static final Casa TARGARYEN;
-    // inicializando
+
+    // inicializando atributos fixos de cada casa.
     static {
         STARK = new Casa("STARK", 60, 20, 10, 1, 0.20, 0);
         LANNISTER = new Casa("LANNISTER", 50, 20, 10, 2, 0, 0.15);
         TARGARYEN = new Casa("TARGARYEN", 45, 20, 10, 3, 0, 0);
     }
 
-    private String nome;
-    private int vidaMaxima;
-    private int ataqueBase;
-    private int defesaBase;
-    private int alcanceMaximo;
+    private final String nome;
+    private final int vidaMaxima;
+    private final int ataqueBase;
+    private final int defesaBase;
+    private final int alcanceMaximo;
 
-    // ainda não entendi para que serve a variável abaixo: vamos estudar melhor seu uso
-    private double modificadorOfensivo;
-    private double modificadorDefensivo;
+    private final double modificadorOfensivo;
+    private final double modificadorDefensivo;
 
     public Casa (String nome, int vidaMaxima, int ataqueBase, int defesaBase, int alcanceMaximo, double modificadorOfensivo, double modificadorDefensivo) {
         this.nome = nome;
