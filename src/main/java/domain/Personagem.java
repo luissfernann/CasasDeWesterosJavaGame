@@ -11,7 +11,6 @@ public class Personagem {
         this.nome = nome;
         this.casa = casa;
         this.posicao = posicao;
-        // a posição é passada, apesar de que ela poderá ser inicialmente definida pelo tabuleiro
         this.vidaAtual = casa.getVidaMaxima();
     }
 
@@ -65,7 +64,7 @@ public class Personagem {
     }
 
     // Ações
-    public boolean estaVivo() { // Usando 'estaVivo' para clareza
+    public boolean estaVivo() { //
         return this.vidaAtual > 0;
     }
 // ...

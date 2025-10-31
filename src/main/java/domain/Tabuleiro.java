@@ -37,10 +37,8 @@ public class Tabuleiro {
         p.setPosicaoPersonagem(pos);
     }
 
-
     // adicionando ao tabuleiro os personagens de cada time, em suas posições iniciais
     public void posicaoPInicial(List<Personagem> time1, List<Personagem> time2) {
-
 
         // 1º: Para o time 1
         for (Personagem p : time1) {
@@ -54,7 +52,6 @@ public class Tabuleiro {
             while (grade[posAleatoria.getLinha()][posAleatoria.getColuna()] != null);
             adicionarPersonagem(p, posAleatoria);
         }
-
 
         // 1º: Para o time 2
         for (Personagem p : time2) {
@@ -94,19 +91,20 @@ public class Tabuleiro {
     // Imprimindo a atualização do tabuleiro, considerando o seu turno atual
     public void ImprimeTabuleiro() {
 
+        System.out.println("\n          TABULEIRO ATUAL \n");
 
-        System.out.println("         TABULEIRO ATUAL ");
-
+        System.out.print("    ");
         for (int j = 0; j < TAMANHO; j++) {
             System.out.printf("%2d ", j);
         }
         System.out.println();
+
         System.out.print("    ");
         for (int j = 0; j < TAMANHO; j++) {
             System.out.print("---");
         }
         System.out.println();
-        // Impressão das linhas com numeração lateral
+
         for (int i = 0; i < TAMANHO; i++) {
             System.out.printf("%2d |", i);
             for (int j = 0; j < TAMANHO; j++) {

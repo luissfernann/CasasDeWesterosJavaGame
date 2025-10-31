@@ -9,21 +9,15 @@ public class RegistroJogada {
     private final TipoAcao tipo;
     private final Personagem autor;
     private final int numeroDoTurno;
-
-
     private final Posicao posInicial;
     private final Posicao posFinal;
-
 
     private final Personagem alvo;
     private final int danoCausado;
     private final int vidaRestanteAlvo;
-
-    // NOVO ATRIBUTO para ações falhas/customizadas
     private final String descricao;
 
-
-    // Construtor 1: MOVIMENTO
+    // Construtor 1: PARA O MOVIMENTO
     public RegistroJogada(int numeroDoTurno, Personagem autor, Posicao posInicial, Posicao posFinal) {
         this.tipo = TipoAcao.MOVIMENTO;
         this.numeroDoTurno = numeroDoTurno;
@@ -31,14 +25,13 @@ public class RegistroJogada {
         this.posInicial = posInicial;
         this.posFinal = posFinal;
 
-
         this.alvo = null;
         this.danoCausado = 0;
         this.vidaRestanteAlvo = 0;
         this.descricao = null;
     }
 
-    // Construtor 2: ATAQUE BEM-SUCEDIDO
+    // Construtor 2: CONSIDERANDO QUE TEMOS UM ATAQUE BEM-SUCEDIDO
     public RegistroJogada(int numeroDoTurno, Personagem autor, Personagem alvo, int danoCausado, int vidaRestanteAlvo) {
         this.tipo = TipoAcao.ATAQUE;
         this.numeroDoTurno = numeroDoTurno;
@@ -47,15 +40,14 @@ public class RegistroJogada {
         this.danoCausado = danoCausado;
         this.vidaRestanteAlvo = vidaRestanteAlvo;
 
-
         this.posInicial = null;
         this.posFinal = null;
         this.descricao = null;
     }
 
-    // Construtor 3: AÇÃO FALHA/CUSTOMIZADA (Resolve o erro do Jogo.java)
+    // Construtor 3: AÇÃO FALHA/CUSTOMIZADA
     public RegistroJogada(int numeroDoTurno, Personagem autor, String descricao) {
-        this.tipo = TipoAcao.ATAQUE; // Usa ATAQUE como marcador genérico
+        this.tipo = TipoAcao.ATAQUE;
         this.numeroDoTurno = numeroDoTurno;
         this.autor = autor;
 
@@ -67,7 +59,6 @@ public class RegistroJogada {
 
         this.descricao = descricao;
     }
-
 
     @Override
     public String toString() {

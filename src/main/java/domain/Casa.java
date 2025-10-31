@@ -55,7 +55,6 @@ public class Casa {
         return modificadorDefensivo;
     }
 
-
     // retornando o identificador de cada casa
     public static Casa getSTARK() {
         return STARK;
