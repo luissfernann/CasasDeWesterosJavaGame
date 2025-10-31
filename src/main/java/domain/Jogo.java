@@ -221,7 +221,7 @@ public class Jogo {
             int escolha = -1;
             try {
                 escolha = Integer.parseInt(entrada) - 1;
-            } catch (NumberFormatException _) {
+            } catch (NumberFormatException e) {
             }
 
             if (escolha >= 0 && escolha < meuTime.size()) {
